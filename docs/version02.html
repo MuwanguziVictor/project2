@@ -1,0 +1,56 @@
+<html>
+    <head>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+        
+        <script>
+            //store some data in the global variables know to all functions 
+            var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=rainbow&api-key=z4AaGeCSHidWux32dYHMfgZZQ2uvlJ3Q";
+            
+            var articleCount = 0;
+            
+            //setup is a standard way P5 starts a script 
+            function setup() {
+                //P5 usually used for drawing 
+                noCanvas();
+                //send the URL and the data comes back, run the function "gotData"
+                loadJSON(url, gotData);
+            }
+            
+            
+            //gotData for just announces itself
+            function gotData(data){
+                alert("FUNCTION GOTDATA ACTIVATED")
+                //accessing some data 
+                /*document.getElementById("test_output").innerHTML =
+                    data.response.docs[0].headline.main*/
+                var text =''
+                for(i=0; i< data.response.docs.length; i++){
+                    text = text + '<br />' + data.response.docs[i].headline.main
+                }
+                document.getElementById("test_output").innerHTML = text
+                
+            }
+                        
+        </script>
+        <style>
+                .output {
+                    color: chartreuse;
+                        }
+        </style>
+            
+    </head>
+    
+    <body>
+        
+        <h1> New York Times API: arcticles from all time about rainbows </h1>
+        
+        <!--a <p> element we will use for output -->
+        <!--it's name is "test_output" and it is styled by the class "output" -->
+        
+        <p id="test_output" class="output"></p>
+    
+    </body>
+
+
+</html>
